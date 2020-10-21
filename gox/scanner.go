@@ -1,4 +1,4 @@
-package main
+package gox
 
 // Scanner c
 type Scanner struct {

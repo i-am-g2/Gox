@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-)
 
-var hadError bool = false
+	"github.com/i-am-g2/Gox/gox"
+)
 
 func main() {
 	if len(os.Args) > 2 {
@@ -18,18 +18,9 @@ func main() {
 	} else {
 		runPrompt()
 	}
-	if hadError {
+	if gox.HadError {
 		os.Exit(65)
 	}
-}
-
-func error(line int, msg string) {
-	report(line, "", msg)
-}
-
-func report(line int, where, msg string) {
-	fmt.Println("[line", line, "] Error:"+where+": "+msg)
-	hadError = true
 }
 
 func runPrompt() {
@@ -38,7 +29,7 @@ func runPrompt() {
 		scanner := bufio.NewReader(os.Stdin)
 		line, _, _ := scanner.ReadLine()
 		run(string(line))
-		hadError = false
+		gox.HadError = false
 	}
 }
 
@@ -48,13 +39,13 @@ func runFile(path string) {
 		os.Exit(64)
 	}
 	run(string(bytes))
-	if hadError {
+	if gox.HadError {
 		os.Exit(65)
 	}
 }
 
 func run(source string) {
-	scanner := NewScanner(source)
+	scanner := gox.NewScanner(source)
 	tokens := scanner.ScanTokens()
 
 	for i := 0; i < len(tokens); i++ {

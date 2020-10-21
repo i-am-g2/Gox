@@ -1,4 +1,4 @@
-package main
+package gox
 
 // Object ad
 type Object interface{}
