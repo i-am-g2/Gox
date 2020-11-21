@@ -1,5 +1,7 @@
 package gox
 
+import "strconv"
+
 // Scanner c
 type Scanner struct {
 	source               string
@@ -147,7 +149,7 @@ func (s *Scanner) addNilToken(tokenType string) {
 	text := s.source[s.start:s.current]
 	s.tokens = append(s.tokens, Token{tokenType, text, s.line, nil})
 }
-func (s *Scanner) addToken(tokenType string, value string) {
+func (s *Scanner) addToken(tokenType string, value Object) {
 	text := s.source[s.start:s.current]
 
 	s.tokens = append(s.tokens, Token{tokenType, text, s.line, value})
@@ -212,7 +214,7 @@ func (s *Scanner) scanNum() {
 			s.advance()
 		}
 	}
-	num := s.source[s.start:s.current]
+	num, _ := strconv.ParseFloat(s.source[s.start:s.current], 64)
 
 	s.addToken("INT", num)
 

@@ -1,9 +1,9 @@
 package gox
 
-// Object ad
+// Object interface
 type Object interface{}
 
-// Token determines the type o
+// Token stores information about token
 type Token struct {
 	tokenType string
 	lexeme    string
@@ -11,15 +11,7 @@ type Token struct {
 	object    Object
 }
 
-// New - Creates new
-func (t *Token) New(tokenType, lexeme string, line int, obj Object) {
-	t.tokenType = tokenType
-	t.lexeme = lexeme
-	t.line = line
-	t.object = obj
-}
-
-// ToString conv
+// ToString gives string representation for token
 func (t *Token) ToString() string {
 	return t.tokenType + " " + t.lexeme + " " + string(t.line)
 }
